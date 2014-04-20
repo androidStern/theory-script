@@ -1,0 +1,43 @@
+{
+  "name": "theory_script",
+  "description": "music theory for coffee-scripters",
+  "version": "0.1.0",
+  "homepage": "https://github.com/androidStern/theory_script",
+  "author": {
+    "name": "andrewstern",
+    "email": "andrew.martin.stern@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/androidStern/theory_script.git"
+  },
+  "bugs": {
+    "url": "https://github.com/androidStern/theory_script/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/androidStern/theory_script/blob/master/LICENSE-MIT"
+    }
+  ],
+  "main": "lib/theory_script",
+  "engines": {
+    "node": ">= 0.10.0"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "devDependencies": {
+    "grunt-contrib-coffee": "~0.7",
+    "grunt-contrib-watch": "~0.2.0",
+    "grunt-simple-mocha": "~0.4",
+    "mocha": "*",
+    "sinon": "*",
+    "chai": "*",
+    "sinon-chai": "*",
+    "grunt": "~0.4.4",
+    "allong.es": "~0.14.0",
+    "lodash": "~2.4.1"
+  },
+  "keywords": []
+}
