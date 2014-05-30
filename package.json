@@ -42,7 +42,8 @@
     "grunt-lsc": "~1.0.1",
     "prelude-ls": "~1.1.1",
     "fn_utils": "~0.1.0",
-    "array-extended": "0.0.11"
+    "array-extended": "0.0.11",
+    "zazate.js": "0.0.0"
   },
   "keywords": []
 }

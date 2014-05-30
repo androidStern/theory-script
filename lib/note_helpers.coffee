@@ -1,6 +1,5 @@
 utils = require "./utils.coffee"
 
-
 # {utils.strWithout, utils.endsWith, utils.dropLast, utils.first, utils.rest, utils.isEmpty, utils.contains, utils.allNumbers, utils.withoutNum, utils.compose} = require './utils.coffee'
 
 {keys} = require './maj_scales.coffee'
@@ -15,8 +14,21 @@ getOct = (str)->
   if d? then Number(d.join("")) else 0
 
 # Inc Note
+removeSharp = (note)-> if endsWithSharp note then utils.dropLast note
 removeFlat = (note)-> if endsWithFlat note then utils.dropLast note
+
 addSharp = (note)-> note + '#'
+addFlat = (note)-> note + 'b'
+
+simple = {}
+
+simple.incNote = (note)->
+  oct = getOct note
+  n = utils.withoutNum note
+  if n.length is 1 or endsWithSharp(n) then addSharp(n)
+  else if endsWithFlat(n) then removeFlat(n)
+
+
 incNote = (note)->
   oct = getOct note
   n = utils.withoutNum note
@@ -24,8 +36,18 @@ incNote = (note)->
   else if endsWithFlat(n) then removeFlat(n) + oct
 
 # Dec Note
-removeSharp = (note)-> if endsWithSharp note then utils.dropLast note
-addFlat = (note)-> note + 'b'
+
+
+
+
+
+simple.decNote = (note)->
+  oct = getOct note
+  n = utils.withoutNum note
+  if n.length is 1 or endsWithFlat(n) then addFlat(n)
+  else if endsWithSharp(n) then removeSharp(n)
+
+
 decNote = (note)->
   oct = getOct note
   n = utils.withoutNum note
@@ -51,9 +73,10 @@ baseNote = utils.compose utils.first, utils.withoutNum, withoutSharp, withoutFla
 cOffset = (note)-> c_Maj.indexOf baseNote(note)
 
 
-note_helpers =
+module.exports =
   "getOct": getOct
   "incNote": incNote
   "decNote":decNote
   "cOffset":cOffset
   "keys":keys
+  "simple": simple

@@ -7,6 +7,7 @@ TODO: write test for applyTimes
 ###
 
 _ = require 'lodash-contrib'
+
 applyTimes = (fn)-> (val, n)-> _.reduce [1..n], ((acc)-> fn(acc)), val
 
 isNumber = (value)->
@@ -50,8 +51,10 @@ complement = (fn)->
     not fn.apply(null, args)
 
 isntNaN = complement isNaN
+
 # isReallyNumber = checks isNumber, isntNaN
 isReallyNumber = (n)-> isNumber(n) and not isNaN(n)
+
 toNumbers = mapWith (val)-> +val
 
 allNumbers = (n)->
@@ -101,7 +104,7 @@ compose = _.compose
 
 
 module.exports =  {
-  "applyTimes":applyTimes
+  "applyTimes": applyTimes
   "curry1":    curry1
   "curry2":    curry2
   "flip":      flip

@@ -1,4 +1,4 @@
-module.exports = do ->
+keys = do ->
   _keys =
     'C': ['C0','D0','E0','F0','G0','A0','B0']
     'G': ['G0','A0','B0','C1','D1','E1','F#1']
@@ -22,3 +22,6 @@ module.exports = do ->
     'Cb': ['Cb0','Db0','Eb0','Fb0','Gb0','Ab0','Bb0']
     'Fb': ['Fb0','Gb0','Ab0','Bbb0','Cb1','Db1','Eb1']
   (key)-> _keys[key]
+
+module.exports =
+  "keys": keys
