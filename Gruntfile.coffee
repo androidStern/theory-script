@@ -6,6 +6,7 @@ module.exports = (grunt) ->
     coffee:
       lib:
         options:
+          goog: true
           bare: true
           sourceMap: true
         expand: true
@@ -23,30 +24,32 @@ module.exports = (grunt) ->
 
     watch:
       lib:
-        files: "<%= coffee.lib.src %>"
+        files: [
+          "<%= coffee.lib.src %>"]
         tasks: ["coffee:lib"]
-
       test:
         files: [
           "<%= coffee.lib.src %>"
-          "<%= coffee.test.src %>"
-        ]
-        tasks: ["coffee", "test"]
+          "<%= coffee.test.src %>"]
+        tasks: ["coffee","test"]
 
     simplemocha:
       all:
         src: ['test/**/*.coffee']
         options:
+          growl: true
           timeout: 3000
           ignoreLeaks: false
           ui: 'bdd'
-          compilers: 'coffee:coffee-script'
+          compilers: ['coffee:coffee-script']
+          reporter: 'List'
 
 
   # These plugins provide necessary tasks.
   grunt.loadNpmTasks "grunt-contrib-coffee"
   grunt.loadNpmTasks "grunt-contrib-watch"
   grunt.loadNpmTasks "grunt-simple-mocha"
+  grunt.loadNpmTasks "grunt-lsc"
 
   grunt.registerTask "default", ["watch"]
   grunt.registerTask "test", ["simplemocha"]
