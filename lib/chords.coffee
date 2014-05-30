@@ -12,5 +12,3 @@ intervalMap =
 fromNote = (note, tonality)->
 	root = note.toUpperCase()
 	_.map intervalMap[tonality], (fn)-> fn(root)
-
-console.log fromNote "D", "major"

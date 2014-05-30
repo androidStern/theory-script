@@ -56,6 +56,7 @@ decNote = (note)->
 
 # Is Note
 inC = (note)-> utils.contains c_Maj, note
+
 isNote = (n)->
   if not inC(utils.first(n).toUpperCase()) then return false
   n = utils.rest n
