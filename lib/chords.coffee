@@ -12,3 +12,7 @@ intervalMap =
 fromNote = (note, tonality)->
 	root = note.toUpperCase()
 	_.map intervalMap[tonality], (fn)-> fn(root)
+
+module.exports = {
+	"fromNote": fromNote
+}
