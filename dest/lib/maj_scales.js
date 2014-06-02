@@ -1,4 +1,6 @@
-module.exports = (function() {
+var keys;
+
+keys = (function() {
   var _keys;
   _keys = {
     'C': ['C0', 'D0', 'E0', 'F0', 'G0', 'A0', 'B0'],
@@ -27,6 +29,10 @@ module.exports = (function() {
     return _keys[key];
   };
 })();
+
+module.exports = {
+  "keys": keys
+};
 
 /*
 //@ sourceMappingURL=maj_scales.js.map

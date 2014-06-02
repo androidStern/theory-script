@@ -1,6 +1,9 @@
 {compose, first, map, indexOf, zip} = require 'lodash'
 {permutations} = require 'array-extended'
-{partial, mapWith} = require 'fn_utils'
+{partial, flip} = require 'fn-utils'
+{noteDelta} = require "./note-deltas"
+
+mapWith = flip map
 
 {fromNote} = require('./chords.coffee')
 
@@ -11,17 +14,12 @@ idx_in_c = compose first, mapWith partial(binary(indexOf), ['C','D','E','F','G',
 idxWithC = (note)-> idx_in_c(note.toUpperCase())
 
 find_voicings = (ch1, ch2)-> map permutations(ch1), (c)-> zip c, ch2
-	
 
 weigh_voicing = (voicing)->
 	score = 0
 	for voice in voicing
-		[n1,n2] = map voice, idxWithC
-		score += Math.abs(n2 - n1)
+		score += noteDelta(voice[0], voice[1])
 	return score
-
-
-weigh_voicing [["C", "D"]]
 
 
 compare_voicings = (v1, v2)->
@@ -46,4 +44,4 @@ voice_chords = (c1,c2)->
 c = {pitch:"c", quality: "major"}
 g = {pitch: "g", quality: "major"}
 
-# console.log voice_chords(c, g)
+console.log voice_chords(c, g)

@@ -1,4 +1,3 @@
-goog.require('goog.array');
 /*
 applyTimes, curry1, curry2, flip, rcurry2, mapWith, isNumber, toNumbers, allNumbers, strWithout, dropLast, endsWith, nthWith, withoutNum, has, partial, first, rest, isEmpty, contains
 
@@ -7,7 +6,8 @@ partial, first, rest, isEmpty, contains
 TODO: write test for applyTimes
 */
 
-var allNumbers, applyTimes, arr_equals, checks, complement, compose, contains, curry1, curry2, dropLast, endsWith, first, flip, has, isEmpty, isNaN, isNumber, isReallyNumber, isntNaN, mapWith, nthWith, partial, rcurry2, rest, strWithout, toNumbers, withoutNum, _;
+var allNumbers, applyTimes, arr_equals, checks, complement, compose, contains, curry1, curry2, dropLast, endsWith, first, flip, has, isEmpty, isNaN, isNumber, isReallyNumber, isntNaN, mapWith, nthWith, partial, rcurry2, rest, strWithout, toNumbers, withoutNum, _,
+  __slice = [].slice;
 
 _ = require('lodash-contrib');
 
@@ -72,7 +72,7 @@ flip = function(fn) {
   }
   return function() {
     var args;
-    args = 1 <= arguments.length ? goog.array.slice(arguments, 0) : [];
+    args = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
     return fn.apply(null, args.reverse());
   };
 };
@@ -88,7 +88,7 @@ mapWith = rcurry2(_.map);
 
 checks = function() {
   var fns;
-  fns = 1 <= arguments.length ? goog.array.slice(arguments, 0) : [];
+  fns = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
   return function(n) {
     return _.reduce(fns, (function(acc, fn) {
       return fn(n) && acc;
@@ -99,7 +99,7 @@ checks = function() {
 complement = function(fn) {
   return function() {
     var args;
-    args = 1 <= arguments.length ? goog.array.slice(arguments, 0) : [];
+    args = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
     return !fn.apply(null, args);
   };
 };

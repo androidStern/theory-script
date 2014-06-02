@@ -1,5 +1,5 @@
 utils = require "./utils.coffee"
-
+{indexOf} = require 'lodash'
 # {utils.strWithout, utils.endsWith, utils.dropLast, utils.first, utils.rest, utils.isEmpty, utils.contains, utils.allNumbers, utils.withoutNum, utils.compose} = require './utils.coffee'
 
 {keys} = require './maj_scales.coffee'
@@ -74,6 +74,30 @@ baseNote = utils.compose utils.first, utils.withoutNum, withoutSharp, withoutFla
 cOffset = (note)-> c_Maj.indexOf baseNote(note)
 
 
+###
+
+###
+
+capitalize = (word)->
+  word[0].toUpperCase() + word[1..-1].toLowerCase()
+
+idxFlat = (note)->
+  indexOf ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"], capitalize(note)
+
+idxSharp = (note)->
+  indexOf ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"], capitalize(note)
+
+noteToNum = (note)->
+  note = capitalize(note)
+  if note.length is 1
+    return idxSharp note
+  else
+    if note[1] is "#"
+      return idxSharp note
+    else if note[1] is "b"
+      return idxFlat note
+
+
 module.exports =
   "getOct": getOct
   "incNote": incNote
@@ -81,3 +105,4 @@ module.exports =
   "cOffset":cOffset
   "keys":keys
   "simple": simple
+  "noteToNum": noteToNum
