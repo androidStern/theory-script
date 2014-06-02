@@ -1,6 +1,8 @@
-var addFlat, addSharp, baseNote, cOffset, c_Maj, decNote, endsWithFlat, endsWithSharp, getOct, inC, incNote, isNote, keys, note_helpers, removeFlat, removeSharp, utils, withoutFlat, withoutSharp;
+var addFlat, addSharp, baseNote, cOffset, c_Maj, capitalize, compose, decNote, endsWithFlat, endsWithSharp, first, getOct, idxFlat, idxSharp, inC, incNote, indexOf, isNote, keys, noteToNum, removeFlat, removeSharp, simple, utils, withoutFlat, withoutSharp, _ref;
 
 utils = require("./utils.coffee");
+
+_ref = require('lodash'), indexOf = _ref.indexOf, compose = _ref.compose, first = _ref.first;
 
 keys = require('./maj_scales.coffee').keys;
 
@@ -20,6 +22,12 @@ getOct = function(str) {
   }
 };
 
+removeSharp = function(note) {
+  if (endsWithSharp(note)) {
+    return utils.dropLast(note);
+  }
+};
+
 removeFlat = function(note) {
   if (endsWithFlat(note)) {
     return utils.dropLast(note);
@@ -28,6 +36,23 @@ removeFlat = function(note) {
 
 addSharp = function(note) {
   return note + '#';
+};
+
+addFlat = function(note) {
+  return note + 'b';
+};
+
+simple = {};
+
+simple.incNote = function(note) {
+  var n, oct;
+  oct = getOct(note);
+  n = utils.withoutNum(note);
+  if (n.length === 1 || endsWithSharp(n)) {
+    return addSharp(n);
+  } else if (endsWithFlat(n)) {
+    return removeFlat(n);
+  }
 };
 
 incNote = function(note) {
@@ -41,14 +66,15 @@ incNote = function(note) {
   }
 };
 
-removeSharp = function(note) {
-  if (endsWithSharp(note)) {
-    return utils.dropLast(note);
+simple.decNote = function(note) {
+  var n, oct;
+  oct = getOct(note);
+  n = utils.withoutNum(note);
+  if (n.length === 1 || endsWithFlat(n)) {
+    return addFlat(n);
+  } else if (endsWithSharp(n)) {
+    return removeSharp(n);
   }
-};
-
-addFlat = function(note) {
-  return note + 'b';
 };
 
 decNote = function(note) {
@@ -91,18 +117,49 @@ withoutSharp = utils.strWithout(/#/g);
 
 withoutFlat = utils.strWithout(/b/g);
 
-baseNote = utils.compose(utils.first, utils.withoutNum, withoutSharp, withoutFlat);
+baseNote = compose(first, utils.withoutNum, withoutSharp, withoutFlat);
 
 cOffset = function(note) {
   return c_Maj.indexOf(baseNote(note));
 };
 
-note_helpers = {
+/*
+*/
+
+
+capitalize = function(word) {
+  return word[0].toUpperCase() + word.slice(1).toLowerCase();
+};
+
+idxFlat = function(note) {
+  return indexOf(["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"], capitalize(note));
+};
+
+idxSharp = function(note) {
+  return indexOf(["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"], capitalize(note));
+};
+
+noteToNum = function(note) {
+  note = capitalize(note);
+  if (note.length === 1) {
+    return idxSharp(note);
+  } else {
+    if (note[1] === "#") {
+      return idxSharp(note);
+    } else if (note[1] === "b") {
+      return idxFlat(note);
+    }
+  }
+};
+
+module.exports = {
   "getOct": getOct,
   "incNote": incNote,
   "decNote": decNote,
   "cOffset": cOffset,
-  "keys": keys
+  "keys": keys,
+  "simple": simple,
+  "noteToNum": noteToNum
 };
 
 /*

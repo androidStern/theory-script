@@ -1,13 +1,15 @@
-goog.require('goog.array');
+var allNumbers, applyTimes, arr_equals, binary, checks, complement, curry, curry2, flip, isNaN, isNumber, isReallyNumber, isntNaN, mapWith, ncurry, partial, toNumbers, _, _ref,
+  __slice = [].slice;
+
+_ref = require("fn-utils"), ncurry = _ref.ncurry, curry = _ref.curry, partial = _ref.partial, flip = _ref.flip, curry2 = _ref.curry2, binary = _ref.binary;
+
+mapWith = require('flipped').mapWith;
+
 /*
-applyTimes, curry1, curry2, flip, rcurry2, mapWith, isNumber, toNumbers, allNumbers, strWithout, dropLast, endsWith, nthWith, withoutNum, has, partial, first, rest, isEmpty, contains
-
-partial, first, rest, isEmpty, contains
-
+applyTimes, isNumber, toNumbers, allNumbers, strWithout, dropLast, endsWith, nthWith, withoutNum
 TODO: write test for applyTimes
 */
 
-var allNumbers, applyTimes, arr_equals, checks, complement, compose, contains, curry1, curry2, dropLast, endsWith, first, flip, has, isEmpty, isNaN, isNumber, isReallyNumber, isntNaN, mapWith, nthWith, partial, rcurry2, rest, strWithout, toNumbers, withoutNum, _;
 
 _ = require('lodash-contrib');
 
@@ -32,63 +34,9 @@ isNaN = function(value) {
   return isNumber(value) && value !== +value;
 };
 
-curry1 = function(fn) {
-  var _unary;
-  if (!_.isFunction(fn)) {
-    throw new TypeError('Argument of curry1 must be of type function');
-  }
-  return _unary = function(a) {
-    if (a === null) {
-      return _unary;
-    } else {
-      return fn(a);
-    }
-  };
-};
-
-curry2 = function(fn) {
-  var _binary;
-  if (!_.isFunction(fn)) {
-    throw new TypeError('Arguments to curry2 must be of type function');
-  }
-  return _binary = function(a, b) {
-    var al;
-    al = arguments.length;
-    if (al === 0) {
-      return _binary;
-    } else if (al === 1) {
-      return curry1(function(b) {
-        return fn(a, b);
-      });
-    } else {
-      return fn(a, b);
-    }
-  };
-};
-
-flip = function(fn) {
-  if (!_.isFunction(fn)) {
-    throw new TypeError('Argument to flip must be of type function');
-  }
-  return function() {
-    var args;
-    args = 1 <= arguments.length ? goog.array.slice(arguments, 0) : [];
-    return fn.apply(null, args.reverse());
-  };
-};
-
-rcurry2 = function(fn) {
-  if (!_.isFunction(fn)) {
-    throw new TypeError('Arguments to rcurry2 must be of type function');
-  }
-  return curry2(flip(fn));
-};
-
-mapWith = rcurry2(_.map);
-
 checks = function() {
   var fns;
-  fns = 1 <= arguments.length ? goog.array.slice(arguments, 0) : [];
+  fns = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
   return function(n) {
     return _.reduce(fns, (function(acc, fn) {
       return fn(n) && acc;
@@ -99,7 +47,7 @@ checks = function() {
 complement = function(fn) {
   return function() {
     var args;
-    args = 1 <= arguments.length ? goog.array.slice(arguments, 0) : [];
+    args = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
     return !fn.apply(null, args);
   };
 };
@@ -121,39 +69,6 @@ allNumbers = function(n) {
   return _.all(toNumbers(n), isReallyNumber);
 };
 
-strWithout = curry2(function(rgx, str) {
-  var idx, _rgx;
-  if (_.isEmpty(str)) {
-    return '';
-  }
-  if (_.isRegExp(rgx)) {
-    _rgx = new RegExp(rgx.source, 'g');
-    if (str != null) {
-      return str.replace(_rgx, '');
-    }
-  } else if (_.isString(rgx)) {
-    idx = 0;
-    while (idx !== -1) {
-      str = str.replace(rgx, '');
-      idx = str.indexOf(rgx);
-    }
-    return str;
-  }
-});
-
-dropLast = function(str, n) {
-  if (n == null) {
-    n = 1;
-  }
-  if (_.isArray(n || !_.isNumber(+n))) {
-    throw new TypeError('Seccond argument to dropLast must be a number or a quoted number like "1"');
-  }
-  if (!_.isString(str)) {
-    throw new TypeError('First argument to dropLast must be a string');
-  }
-  return _.first(str, str.length - +n).join('');
-};
-
 arr_equals = function(a, b) {
   var i, v, _i, _len;
   if (a.length !== b.length) {
@@ -168,57 +83,11 @@ arr_equals = function(a, b) {
   return true;
 };
 
-endsWith = curry2(function(sub, str) {
-  var x;
-  if (!_.isString(sub) || !_.isString(str)) {
-    throw new TypeError('endsWith expects only string arguments');
-  }
-  str = str.split('');
-  sub = sub.split('');
-  x = _.last(str, sub.length);
-  return arr_equals(x, sub);
-});
-
-withoutNum = strWithout(/\d/g);
-
-nthWith = rcurry2(_.nth);
-
-has = _.contains;
-
-partial = _.partial;
-
-first = _.first;
-
-rest = _.rest;
-
-isEmpty = _.isEmpty;
-
-contains = _.contains;
-
-compose = _.compose;
-
 module.exports = {
   "applyTimes": applyTimes,
-  "curry1": curry1,
-  "curry2": curry2,
-  "flip": flip,
-  "rcurry2": rcurry2,
-  "mapWith": mapWith,
   "isNumber": isNumber,
   "toNumbers": toNumbers,
-  "allNumbers": allNumbers,
-  "strWithout": strWithout,
-  "dropLast": dropLast,
-  "endsWith": endsWith,
-  "nthWith": nthWith,
-  "withoutNum": withoutNum,
-  "has": has,
-  "partial": partial,
-  "first": first,
-  "rest": rest,
-  "isEmpty": isEmpty,
-  "contains": contains,
-  "compose": compose
+  "allNumbers": allNumbers
 };
 
 /*

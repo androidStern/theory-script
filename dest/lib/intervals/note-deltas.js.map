@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "note-deltas.js",
+  "sourceRoot": "../../../lib/intervals/",
+  "sources": [
+    "note-deltas.coffee"
+  ],
+  "names": [],
+  "mappings": "AAAA,IAAA,uBAAA;;AAAC,CAAD,EAAc,IAAA,EAAd,QAAc;;AAEd,CAFA,CAEQ,CAAA,EAAR,IAAS;CAAe,CAAI,CAAT,CAAI,KAAJ;CAAX;;AAER,CAJA,CAIY,CAAA,MAAZ;CACC,KAAA,OAAA;CAAA,CAAA,CAAW,IAAA,EAAA;CAAX,CACA,CAAI,EAAA;CADJ,CAEA,CAAI,EAAA;CAFJ,CAGA,CAAI,EAAA;CACC,CAAO,CAAZ,CAAI,KAAJ;CALW;;AAOZ,CAXA,EAYC,GADK,CAAN;CACC,CAAA,OAAA,EAAA;CAZD,CAAA"
+}
