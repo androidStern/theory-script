@@ -35,7 +35,7 @@ parseChord = function(chord) {
     quality: "major"
   };
   qual = rm_note(chord);
-  _.each(qualities, function(v, k) {
+  each(qualities, function(v, k) {
     if (__indexOf.call(v, qual) >= 0) {
       return c.quality = k;
     }

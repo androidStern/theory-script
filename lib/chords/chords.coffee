@@ -24,5 +24,6 @@ getChord = (chord)->
 	if _.isString chord then fromNote parseChord(chord)
 	else fromNote(chord)
 
+
 module.exports =
 	"getChord": getChord

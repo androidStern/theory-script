@@ -1,4 +1,5 @@
 {each} = require "lodash"
+
 qualities =
 	"major": ["M"]
 	"major-7": ["M7", "maj7", "Maj7", "MAJ7"]
@@ -21,7 +22,7 @@ rm_note = (chord)->
 parseChord = (chord)->
 	c = pitch: chord[0], quality: "major"
 	qual = rm_note chord
-	_.each qualities, (v,k)-> if qual in v then c.quality = k
+	each qualities, (v,k)-> if qual in v then c.quality = k
 	return c
 
 module.exports =
