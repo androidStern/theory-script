@@ -9,6 +9,7 @@ intervalMap = {
   "major-7": [P1, M3, P5, M7],
   "minor": [P1, m3, P5],
   "minor-7": [P1, m3, P5, m7],
+  "dominant-7": [P1, M3, P5, m7],
   "half-diminished-7": [P1, m3, d5, m7],
   "diminished-7": [P1, m3, d5, d7]
 };

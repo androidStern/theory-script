@@ -2,7 +2,7 @@
 {permutations} = require 'array-extended'
 {noteDelta} = require "./intervals/note-deltas"
 {mapwith} = require 'flipped'
-{chordFromNote} = require './chords'
+{getChord} = require './chords/chords'
 
 find_voicings = (ch1, ch2)-> map permutations(ch1), (c)-> zip c, ch2
 
@@ -24,8 +24,8 @@ best_voicing = (voicings)->
 	return best
 
 voice_chords = (c1,c2)->
-	c1= chordFromNote(c1.pitch, c1.quality)
-	c2 = chordFromNote(c2.pitch, c2.quality)
+	c1= getChord c1
+	c2 = getChord c2
 	perms = find_voicings(c1,c2)
 	best_voicing(perms)
 
@@ -34,4 +34,4 @@ cminor = {pitch:"C", quality: "minor"}
 
 g7 = {pitch: "G", quality: "major"}
 
-console.log voice_chords cminor, g7
+console.log voice_chords "C", "G7"

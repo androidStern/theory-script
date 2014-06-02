@@ -23,7 +23,10 @@ endsWith = curry2 (sub, str)->
 	str = str.split ''
 	sub = sub.split ''
 	x = _.last(str, sub.length)
-	arr_equals x, sub
+	truth = true
+	for v, i in x
+		if v isnt sub[i] then truth = false
+	return truth
 
 dropLast = (str, n = 1)->
 	if not _.isNumber +n then throw new TypeError 'Seccond argument to dropLast must be a number or a quoted number like "1"'

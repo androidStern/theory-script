@@ -1,4 +1,4 @@
-var best_voicing, chordFromNote, cminor, compare_voicings, find_voicings, first, g7, map, mapwith, noteDelta, permutations, voice_chords, weigh_voicing, zip, _ref;
+var best_voicing, cminor, compare_voicings, find_voicings, first, g7, getChord, map, mapwith, noteDelta, permutations, voice_chords, weigh_voicing, zip, _ref;
 
 _ref = require('lodash'), first = _ref.first, map = _ref.map, zip = _ref.zip;
 
@@ -8,7 +8,7 @@ noteDelta = require("./intervals/note-deltas").noteDelta;
 
 mapwith = require('flipped').mapwith;
 
-chordFromNote = require('./chords').chordFromNote;
+getChord = require('./chords/chords').getChord;
 
 find_voicings = function(ch1, ch2) {
   return map(permutations(ch1), function(c) {
@@ -46,8 +46,8 @@ best_voicing = function(voicings) {
 
 voice_chords = function(c1, c2) {
   var perms;
-  c1 = chordFromNote(c1.pitch, c1.quality);
-  c2 = chordFromNote(c2.pitch, c2.quality);
+  c1 = getChord(c1);
+  c2 = getChord(c2);
   perms = find_voicings(c1, c2);
   return best_voicing(perms);
 };
@@ -62,7 +62,7 @@ g7 = {
   quality: "major"
 };
 
-console.log(voice_chords(cminor, g7));
+console.log(voice_chords("C", "G7"));
 
 /*
 //@ sourceMappingURL=voice_leading.js.map

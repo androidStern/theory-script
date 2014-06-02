@@ -31,14 +31,21 @@ without = curry2(function(rgx, str) {
 withoutNum = without(/\d/g);
 
 endsWith = curry2(function(sub, str) {
-  var x;
+  var i, truth, v, x, _i, _len;
   if (!_.isString(sub) || !_.isString(str)) {
     throw new TypeError('endsWith expects only string arguments');
   }
   str = str.split('');
   sub = sub.split('');
   x = _.last(str, sub.length);
-  return arr_equals(x, sub);
+  truth = true;
+  for (i = _i = 0, _len = x.length; _i < _len; i = ++_i) {
+    v = x[i];
+    if (v !== sub[i]) {
+      truth = false;
+    }
+  }
+  return truth;
 });
 
 dropLast = function(str, n) {
