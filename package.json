@@ -43,7 +43,8 @@
     "prelude-ls": "~1.1.1",
     "array-extended": "0.0.11",
     "zazate.js": "0.0.0",
-    "fn-utils": "~0.1.2"
+    "fn-utils": "~0.1.2",
+    "flipped": "~0.1.0"
   },
   "keywords": []
 }

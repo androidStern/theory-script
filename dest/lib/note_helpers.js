@@ -1,8 +1,8 @@
-var addFlat, addSharp, baseNote, cOffset, c_Maj, capitalize, decNote, endsWithFlat, endsWithSharp, getOct, idxFlat, idxSharp, inC, incNote, indexOf, isNote, keys, noteToNum, removeFlat, removeSharp, simple, utils, withoutFlat, withoutSharp;
+var addFlat, addSharp, baseNote, cOffset, c_Maj, capitalize, compose, decNote, endsWithFlat, endsWithSharp, first, getOct, idxFlat, idxSharp, inC, incNote, indexOf, isNote, keys, noteToNum, removeFlat, removeSharp, simple, utils, withoutFlat, withoutSharp, _ref;
 
 utils = require("./utils.coffee");
 
-indexOf = require('lodash').indexOf;
+_ref = require('lodash'), indexOf = _ref.indexOf, compose = _ref.compose, first = _ref.first;
 
 keys = require('./maj_scales.coffee').keys;
 
@@ -117,7 +117,7 @@ withoutSharp = utils.strWithout(/#/g);
 
 withoutFlat = utils.strWithout(/b/g);
 
-baseNote = utils.compose(utils.first, utils.withoutNum, withoutSharp, withoutFlat);
+baseNote = compose(first, utils.withoutNum, withoutSharp, withoutFlat);
 
 cOffset = function(note) {
   return c_Maj.indexOf(baseNote(note));

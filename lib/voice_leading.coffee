@@ -1,17 +1,8 @@
-{compose, first, map, indexOf, zip} = require 'lodash'
+{first, map, zip} = require 'lodash'
 {permutations} = require 'array-extended'
-{partial, flip} = require 'fn-utils'
-{noteDelta} = require "./note-deltas"
-
-mapWith = flip map
-
-{fromNote} = require('./chords.coffee')
-
-binary = (fn)-> (a,b)-> fn(a,b)
-
-idx_in_c = compose first, mapWith partial(binary(indexOf), ['C','D','E','F','G','A','B'])
-
-idxWithC = (note)-> idx_in_c(note.toUpperCase())
+{noteDelta} = require "./intervals/note-deltas"
+{mapwith} = require 'flipped'
+{chordFromNote} = require './chords'
 
 find_voicings = (ch1, ch2)-> map permutations(ch1), (c)-> zip c, ch2
 
@@ -32,16 +23,15 @@ best_voicing = (voicings)->
 		if compare_voicings(best, voicing) then best = voicing
 	return best
 
-perms = find_voicings ['c','e','g'], ['d','f','a']
-
 voice_chords = (c1,c2)->
-	c1= fromNote(c1.pitch, c1.quality)
-	c2 = fromNote(c2.pitch, c2.quality)
+	c1= chordFromNote(c1.pitch, c1.quality)
+	c2 = chordFromNote(c2.pitch, c2.quality)
 	perms = find_voicings(c1,c2)
 	best_voicing(perms)
 
 
-c = {pitch:"c", quality: "major"}
-g = {pitch: "g", quality: "major"}
+cminor = {pitch:"C", quality: "minor"}
 
-console.log voice_chords(c, g)
+g7 = {pitch: "G", quality: "major"}
+
+console.log voice_chords cminor, g7

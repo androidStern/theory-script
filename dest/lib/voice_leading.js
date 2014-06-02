@@ -1,28 +1,14 @@
-var best_voicing, binary, c, compare_voicings, compose, find_voicings, first, flip, fromNote, g, idxWithC, idx_in_c, indexOf, map, mapWith, noteDelta, partial, perms, permutations, voice_chords, weigh_voicing, zip, _ref, _ref1;
+var best_voicing, chordFromNote, cminor, compare_voicings, find_voicings, first, g7, map, mapwith, noteDelta, permutations, voice_chords, weigh_voicing, zip, _ref;
 
-_ref = require('lodash'), compose = _ref.compose, first = _ref.first, map = _ref.map, indexOf = _ref.indexOf, zip = _ref.zip;
+_ref = require('lodash'), first = _ref.first, map = _ref.map, zip = _ref.zip;
 
 permutations = require('array-extended').permutations;
 
-_ref1 = require('fn-utils'), partial = _ref1.partial, flip = _ref1.flip;
+noteDelta = require("./intervals/note-deltas").noteDelta;
 
-noteDelta = require("./note-deltas").noteDelta;
+mapwith = require('flipped').mapwith;
 
-mapWith = flip(map);
-
-fromNote = require('./chords.coffee').fromNote;
-
-binary = function(fn) {
-  return function(a, b) {
-    return fn(a, b);
-  };
-};
-
-idx_in_c = compose(first, mapWith(partial(binary(indexOf), ['C', 'D', 'E', 'F', 'G', 'A', 'B'])));
-
-idxWithC = function(note) {
-  return idx_in_c(note.toUpperCase());
-};
+chordFromNote = require('./chords').chordFromNote;
 
 find_voicings = function(ch1, ch2) {
   return map(permutations(ch1), function(c) {
@@ -41,8 +27,8 @@ weigh_voicing = function(voicing) {
 };
 
 compare_voicings = function(v1, v2) {
-  var w1, w2, _ref2;
-  _ref2 = map([v1, v2], weigh_voicing), w1 = _ref2[0], w2 = _ref2[1];
+  var w1, w2, _ref1;
+  _ref1 = map([v1, v2], weigh_voicing), w1 = _ref1[0], w2 = _ref1[1];
   return w2 < w1;
 };
 
@@ -58,26 +44,25 @@ best_voicing = function(voicings) {
   return best;
 };
 
-perms = find_voicings(['c', 'e', 'g'], ['d', 'f', 'a']);
-
 voice_chords = function(c1, c2) {
-  c1 = fromNote(c1.pitch, c1.quality);
-  c2 = fromNote(c2.pitch, c2.quality);
+  var perms;
+  c1 = chordFromNote(c1.pitch, c1.quality);
+  c2 = chordFromNote(c2.pitch, c2.quality);
   perms = find_voicings(c1, c2);
   return best_voicing(perms);
 };
 
-c = {
-  pitch: "c",
+cminor = {
+  pitch: "C",
+  quality: "minor"
+};
+
+g7 = {
+  pitch: "G",
   quality: "major"
 };
 
-g = {
-  pitch: "g",
-  quality: "major"
-};
-
-console.log(voice_chords(c, g));
+console.log(voice_chords(cminor, g7));
 
 /*
 //@ sourceMappingURL=voice_leading.js.map

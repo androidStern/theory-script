@@ -1,6 +1,6 @@
-var M3, M7, P1, P5, d5, d7, fromNote, intervalMap, m3, m7, _, _ref;
+var M3, M7, P1, P5, chordFromNote, d5, d7, intervalMap, m3, m7, _, _ref;
 
-_ref = require("./simple-intervals.coffee"), P1 = _ref.P1, m3 = _ref.m3, M3 = _ref.M3, P5 = _ref.P5, d5 = _ref.d5, m7 = _ref.m7, d7 = _ref.d7, M7 = _ref.M7;
+_ref = require("./intervals/simple-intervals"), P1 = _ref.P1, m3 = _ref.m3, M3 = _ref.M3, P5 = _ref.P5, d5 = _ref.d5, m7 = _ref.m7, d7 = _ref.d7, M7 = _ref.M7;
 
 _ = require('lodash');
 
@@ -13,7 +13,7 @@ intervalMap = {
   "diminished-7": [P1, m3, d5, d7]
 };
 
-fromNote = function(note, tonality) {
+chordFromNote = function(note, tonality) {
   var root;
   root = note.toUpperCase();
   return _.map(intervalMap[tonality], function(fn) {
@@ -22,7 +22,7 @@ fromNote = function(note, tonality) {
 };
 
 module.exports = {
-  "fromNote": fromNote
+  "chordFromNote": chordFromNote
 };
 
 /*

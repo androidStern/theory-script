@@ -1,4 +1,4 @@
-{P1, m3, M3, P5, d5, m7, d7, M7} = require "./simple-intervals.coffee"
+{P1, m3, M3, P5, d5, m7, d7, M7} = require "./intervals/simple-intervals"
 _ = require 'lodash'
 
 intervalMap =
@@ -9,10 +9,9 @@ intervalMap =
 	"half-diminished-7": [P1, m3, d5, m7]
 	"diminished-7": [P1, m3, d5, d7]
 
-fromNote = (note, tonality)->
+chordFromNote = (note, tonality)->
 	root = note.toUpperCase()
 	_.map intervalMap[tonality], (fn)-> fn(root)
 
-module.exports = {
-	"fromNote": fromNote
-}
+module.exports =
+	"chordFromNote": chordFromNote

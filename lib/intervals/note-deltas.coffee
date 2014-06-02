@@ -1,4 +1,4 @@
-{noteToNum} = require './note_helpers'
+{noteToNum} = require '../note-helpers'
 
 delta = (n1, n2)-> Math.abs(n2 - n1)
 

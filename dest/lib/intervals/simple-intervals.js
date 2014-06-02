@@ -1,16 +1,12 @@
-var applyTimes, decNote, decTimes, fifth, fourth, ifact, incNote, incTimes, intervals, keys, note_helpers, nthWith, seccond, seventh, sixth, third, withoutNum, _interval, _ref;
+var applyTimes, capitalize, decNote, decTimes, fifth, fourth, ifact, incNote, incTimes, interval_names, intervals, keys, nthWith, seccond, seventh, sixth, third, v, withoutNum, _i, _interval, _len, _ref, _ref1;
 
-note_helpers = require("./note_helpers");
+_ref = require("../note-helpers"), incNote = _ref.incNote, decNote = _ref.decNote, keys = _ref.keys;
 
 nthWith = require('flipped').nthWith;
 
-_ref = require("./utils.coffee"), applyTimes = _ref.applyTimes, withoutNum = _ref.withoutNum;
+_ref1 = require("../utils"), applyTimes = _ref1.applyTimes, withoutNum = _ref1.withoutNum;
 
-incNote = note_helpers.simple.incNote;
-
-decNote = note_helpers.simple.decNote;
-
-keys = note_helpers.keys;
+capitalize = require('../utils/string-utils').capitalize;
 
 incTimes = applyTimes(incNote);
 
@@ -114,38 +110,17 @@ intervals = {
 
 ifact = function(deg) {
   return function(note) {
-    note = note.toUpperCase();
-    return withoutNum(intervals[deg](note));
+    note = capitalize(note);
+    return intervals[deg](note);
   };
 };
 
-module.exports = {
-  "d1": ifact("d1"),
-  "P1": ifact("P1"),
-  "A1": ifact("A1"),
-  "d2": ifact("d2"),
-  "m2": ifact("m2"),
-  "M2": ifact("M2"),
-  "A2": ifact("A2"),
-  "d3": ifact("d3"),
-  "m3": ifact("m3"),
-  "M3": ifact("M3"),
-  "A3": ifact("A3"),
-  "d4": ifact("d4"),
-  "P4": ifact("P4"),
-  "A4": ifact("A4"),
-  "d5": ifact("d5"),
-  "P5": ifact("P5"),
-  "A5": ifact("A5"),
-  "d6": ifact("d6"),
-  "m6": ifact("m6"),
-  "M6": ifact("M6"),
-  "A6": ifact("A6"),
-  "d7": ifact("d7"),
-  "m7": ifact("m7"),
-  "M7": ifact("M7"),
-  "A7": ifact("A7")
-};
+interval_names = ["d1", "P1", "A1", "d2", "m2", "M2", "A2", "d3", "m3", "M3", "A3", "d4", "P4", "A4", "d5", "P5", "A5", "d6", "m6", "M6", "A6", "d7", "m7", "M7", "A7"];
+
+for (_i = 0, _len = interval_names.length; _i < _len; _i++) {
+  v = interval_names[_i];
+  module.exports[v] = ifact(v);
+}
 
 /*
 //@ sourceMappingURL=simple-intervals.js.map

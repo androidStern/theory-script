@@ -1,38 +1,32 @@
-var applyTimes, decNote, decTimes, fifth, fourth, ifact, incNote, incTimes, intervals, keys, note_helpers, nthWith, seccond, seventh, sixth, third, withoutNum, _interval, _ref;
+var decTimes, fifth, fourth, h, incTimes, intervals, seccond, seventh, sixth, third, u, _interval;
 
-note_helpers = require("./note_helpers");
+h = require("./note_helpers.coffee");
 
-nthWith = require('flipped').nthWith;
+u = require("./utils.coffee");
 
-_ref = require("./utils.coffee"), applyTimes = _ref.applyTimes, withoutNum = _ref.withoutNum;
+incTimes = u.applyTimes(h.incNote);
 
-incNote = note_helpers.simple.incNote;
-
-decNote = note_helpers.simple.decNote;
-
-keys = note_helpers.keys;
-
-incTimes = applyTimes(incNote);
-
-decTimes = applyTimes(decNote);
+decTimes = u.applyTimes(h.decNote);
 
 _interval = function(pos) {
   return function(note) {
-    return pos(keys(note));
+    var n;
+    n = pos(h.keys(u.withoutNum(note)));
+    return u.withoutNum(n) + (getDigits(note) + h.getOct(n));
   };
 };
 
-seccond = _interval(nthWith(1));
+seccond = _interval(u.nthWith(1));
 
-third = _interval(nthWith(2));
+third = _interval(u.nthWith(2));
 
-fourth = _interval(nthWith(3));
+fourth = _interval(u.nthWith(3));
 
-fifth = _interval(nthWith(4));
+fifth = _interval(u.nthWith(4));
 
-sixth = _interval(nthWith(5));
+sixth = _interval(u.nthWith(5));
 
-seventh = _interval(nthWith(6));
+seventh = _interval(u.nthWith(6));
 
 intervals = {
   "d1": function(note) {
@@ -112,41 +106,6 @@ intervals = {
   }
 };
 
-ifact = function(deg) {
-  return function(note) {
-    note = note.toUpperCase();
-    return withoutNum(intervals[deg](note));
-  };
-};
-
-module.exports = {
-  "d1": ifact("d1"),
-  "P1": ifact("P1"),
-  "A1": ifact("A1"),
-  "d2": ifact("d2"),
-  "m2": ifact("m2"),
-  "M2": ifact("M2"),
-  "A2": ifact("A2"),
-  "d3": ifact("d3"),
-  "m3": ifact("m3"),
-  "M3": ifact("M3"),
-  "A3": ifact("A3"),
-  "d4": ifact("d4"),
-  "P4": ifact("P4"),
-  "A4": ifact("A4"),
-  "d5": ifact("d5"),
-  "P5": ifact("P5"),
-  "A5": ifact("A5"),
-  "d6": ifact("d6"),
-  "m6": ifact("m6"),
-  "M6": ifact("M6"),
-  "A6": ifact("A6"),
-  "d7": ifact("d7"),
-  "m7": ifact("m7"),
-  "M7": ifact("M7"),
-  "A7": ifact("A7")
-};
-
 /*
-//@ sourceMappingURL=simple-intervals.js.map
+//@ sourceMappingURL=intervals.js.map
 */
